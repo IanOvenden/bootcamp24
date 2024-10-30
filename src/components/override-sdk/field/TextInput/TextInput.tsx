@@ -5,7 +5,6 @@ import { TextField } from '@material-ui/core';
 import handleEvent from '@pega/react-sdk-components/lib/components/helpers/event-utils';
 import { getComponentFromMap } from '@pega/react-sdk-components/lib/bridge/helpers/sdk_component_map';
 import type { PConnFieldProps } from '@pega/react-sdk-components/lib/types/PConnProps';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 
 export default function TextInput(props) {
   // Get emitted components from map (so we can get any override that may exist)
@@ -71,7 +70,7 @@ export default function TextInput(props) {
     handleEvent(actions, 'changeNblur', propName, inputValue);
   }
 
-  let extraInputProps;
+  const extraInputProps = {};
   if (configAlternateDesignSystem?.autocomplete) {
     extraInputProps['autoComplete'] = configAlternateDesignSystem.autocomplete;
   } else {
