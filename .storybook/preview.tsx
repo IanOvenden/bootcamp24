@@ -1,20 +1,22 @@
-import type { DecoratorFn } from '@storybook/react';
-import {
-  Configuration,
-  PopoverManager,
-  Toaster,
-  ModalManager,
-  WorkTheme
-} from '@pega/cosmos-react-core';
-
-import { decorator } from "../__mocks__/react_pconnect";
+import React from 'react';
+import { Preview } from '@storybook/react';
+import { Configuration, PopoverManager, Toaster, ModalManager, WorkTheme } from '@pega/cosmos-react-core';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 import { getSdkComponentMap } from '@pega/react-sdk-components/lib/bridge/helpers/sdk_component_map';
+import { theme } from '../src/theme';
 
-getSdkComponentMap();  
+import { decorator } from '../__mocks__/react_pconnect';
 
-export const decorators: DecoratorFn[] = [
+const isConstellation = process.env.STORYBOOK_CONSTELLATION;
+
+if (!isConstellation) {
+  getSdkComponentMap();
+}
+
+const decorators = [
   (Story, context) => {
-    return (
+    return isConstellation ? (
       <Configuration>
         <PopoverManager>
           <Toaster dismissAfter={5000}>
@@ -24,12 +26,19 @@ export const decorators: DecoratorFn[] = [
           </Toaster>
         </PopoverManager>
       </Configuration>
+    ) : (
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Story {...context} />
+        </ThemeProvider>
+      </StyledEngineProvider>
     );
   },
   decorator
 ];
 
-export const parameters = {
+const parameters = {
   backgrounds: {
     default: 'App',
     values: [
@@ -46,5 +55,15 @@ export const parameters = {
         value: WorkTheme.base.palette['secondary-background']
       }
     ]
+  },
+  docs: {
+    source: { type: 'code' }
   }
 };
+
+const preview: Preview = {
+  decorators,
+  parameters
+};
+
+export default preview;

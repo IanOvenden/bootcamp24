@@ -1,19 +1,13 @@
-/* eslint-disable no-undef */
 const { test, expect } = require('@playwright/test');
 
 const config = require('../../../config');
 const common = require('../../../common');
 
-test.beforeEach(async ({ page }) => {
-  await page.setViewportSize({ width: 1720, height: 1080 });
-  await page.goto(config.config.baseUrl, { waitUntil: 'networkidle' });
-});
+test.beforeEach(common.launchPortal);
 
 test.describe('E2E test', () => {
-  test('should login, create case and run different test cases for Query', async ({
-    page
-  }) => {
-    await common.Login(
+  test('should login, create case and run different test cases for Query', async ({ page }) => {
+    await common.login(
       config.config.apps.digv2.user.username,
       config.config.apps.digv2.user.password,
       page
@@ -70,6 +64,4 @@ test.describe('E2E test', () => {
   }, 10000);
 });
 
-test.afterEach(async ({ page }) => {
-  await page.close();
-});
+test.afterEach(async ({ page }) => common.closePage(page));
