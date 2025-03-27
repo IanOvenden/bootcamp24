@@ -57,7 +57,9 @@ function gatherConfigFiles() {
   // const COMPONENTS_OVERRIDE_DIR = "override";
 
   // Look for an process any Custom component configs
-  const jsFilesCustom = fg.sync(`${COMPONENTS_ROOT_SOURCE}/${COMPONENTS_CUSTOM_DIR}/**/${CONFIG_NAME}`);
+  const jsFilesCustom = fg.sync(
+    `${COMPONENTS_ROOT_SOURCE}/${COMPONENTS_CUSTOM_DIR}/**/${CONFIG_NAME}`
+  );
 
   jsFilesCustom.forEach(file => {
     // console.log(`${LOG_PRELUDE} found file: ${file}`);
@@ -65,7 +67,9 @@ function gatherConfigFiles() {
   });
 
   // Look for an process any override component configs
-  const jsFilesOverride = fg.sync(`${COMPONENTS_ROOT_SOURCE}/${COMPONENTS_OVERRIDE_DIR}/**/${CONFIG_NAME}`);
+  const jsFilesOverride = fg.sync(
+    `${COMPONENTS_ROOT_SOURCE}/${COMPONENTS_OVERRIDE_DIR}/**/${CONFIG_NAME}`
+  );
 
   jsFilesOverride.forEach(file => {
     // console.log(`${LOG_PRELUDE} found file: ${file}`);

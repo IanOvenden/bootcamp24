@@ -13,7 +13,11 @@ test.describe('E2E test', () => {
   let attributes;
 
   test('should login, create case and run the Decimal tests', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -52,7 +56,9 @@ test.describe('E2E test', () => {
     attributes = await common.getAttributes(requiredDecimal);
     await expect(attributes.includes('required')).toBeTruthy();
 
-    const notRequiredDecimal = page.locator('input[data-test-id="ec06f580c56642afef52547b6755695e"]');
+    const notRequiredDecimal = page.locator(
+      'input[data-test-id="ec06f580c56642afef52547b6755695e"]'
+    );
     attributes = await common.getAttributes(notRequiredDecimal);
     await expect(attributes.includes('required')).toBeFalsy();
 
@@ -62,11 +68,15 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Disable' }).click();
 
     // /** Disable tests */
-    const alwaysDisabledDecimal = page.locator('input[data-test-id="a8216a966548578ad7e015a05ae518f5"]');
+    const alwaysDisabledDecimal = page.locator(
+      'input[data-test-id="a8216a966548578ad7e015a05ae518f5"]'
+    );
     attributes = await common.getAttributes(alwaysDisabledDecimal);
     await expect(attributes.includes('disabled')).toBeTruthy();
 
-    const conditionallyDisabledDecimal = page.locator('input[data-test-id="fdd7f2ac36278186ac15c11d4c30ece1"]');
+    const conditionallyDisabledDecimal = page.locator(
+      'input[data-test-id="fdd7f2ac36278186ac15c11d4c30ece1"]'
+    );
     attributes = await common.getAttributes(conditionallyDisabledDecimal);
     if (isDisabled) {
       await expect(attributes.includes('disabled')).toBeTruthy();
@@ -74,7 +84,9 @@ test.describe('E2E test', () => {
       await expect(attributes.includes('disabled')).toBeFalsy();
     }
 
-    const neverDisabledDecimal = page.locator('input[data-test-id="e91313ec779184e1b172bdc7870f3d4c"]');
+    const neverDisabledDecimal = page.locator(
+      'input[data-test-id="e91313ec779184e1b172bdc7870f3d4c"]'
+    );
     attributes = await common.getAttributes(neverDisabledDecimal);
     await expect(attributes.includes('disabled')).toBeFalsy();
 
@@ -94,7 +106,9 @@ test.describe('E2E test', () => {
     attributes = await common.getAttributes(editableDecimal);
     await expect(attributes.includes('readonly')).toBeFalsy();
 
-    const decimalAsCurrency = page.locator('input[data-test-id="9e438afab6d7ec67b5582bded10f5172"]');
+    const decimalAsCurrency = page.locator(
+      'input[data-test-id="9e438afab6d7ec67b5582bded10f5172"]'
+    );
     attributes = await common.getAttributes(decimalAsCurrency);
     await expect(attributes.includes('readonly')).toBeTruthy();
     await expect(await decimalAsCurrency.inputValue()).toBe('$20');
@@ -105,12 +119,18 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Visibility' }).click();
 
     /** Visibility tests */
-    await expect(page.locator('input[data-test-id="847e3fd45a1aca1c3242d2735124eb9a"]')).toBeVisible();
+    await expect(
+      page.locator('input[data-test-id="847e3fd45a1aca1c3242d2735124eb9a"]')
+    ).toBeVisible();
 
-    const neverVisibleDecimal = await page.locator('input[data-test-id="c73cc441b5988a07bfb30ce168c98800"]');
+    const neverVisibleDecimal = await page.locator(
+      'input[data-test-id="c73cc441b5988a07bfb30ce168c98800"]'
+    );
     await expect(neverVisibleDecimal).not.toBeVisible();
 
-    const conditionallyVisibleDecimal = await page.locator('input[data-test-id="6e93264d15f63cf06e79a402e48c283b"]');
+    const conditionallyVisibleDecimal = await page.locator(
+      'input[data-test-id="6e93264d15f63cf06e79a402e48c283b"]'
+    );
 
     if (isVisible) {
       await expect(conditionallyVisibleDecimal).toBeVisible();

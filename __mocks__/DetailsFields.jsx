@@ -47,7 +47,11 @@ export default function DetailsFields(props) {
       type: theCompType,
       label,
       // eslint-disable-next-line react/no-array-index-key
-      value: <React.Fragment key={index}>{createElement(createPConnectComponent(), thePConn.getReferencedViewPConnect())}</React.Fragment>
+      value: (
+        <React.Fragment key={index}>
+          {createElement(createPConnectComponent(), thePConn.getReferencedViewPConnect())}
+        </React.Fragment>
+      )
     });
   });
 

@@ -13,7 +13,11 @@ test.describe('E2E test', () => {
   let attributes;
 
   test('should login, create case and run the Integer tests', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -46,10 +50,14 @@ test.describe('E2E test', () => {
     attributes = await common.getAttributes(requiredInteger);
     await expect(attributes.includes('required')).toBeTruthy();
     await expect(await requiredInteger.getAttribute('placeholder')).toBe('Integer Placeholder');
-    await expect(page.locator('div >> label').filter({ hasText: 'Required Integer *' })).toBeVisible();
+    await expect(
+      page.locator('div >> label').filter({ hasText: 'Required Integer *' })
+    ).toBeVisible();
     await expect(page.locator('div >> p:has-text("Integer HelperText")')).toBeVisible();
 
-    const notrequiredInteger = page.locator('input[data-test-id="898ba585340f471eecde6b5e798e4df9"]');
+    const notrequiredInteger = page.locator(
+      'input[data-test-id="898ba585340f471eecde6b5e798e4df9"]'
+    );
     attributes = await common.getAttributes(notrequiredInteger);
     await expect(attributes.includes('required')).toBeFalsy();
 
@@ -59,11 +67,15 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Disable' }).click();
 
     // /** Disable tests */
-    const alwaysDisabledInteger = page.locator('input[data-test-id="54a4d3f4aa52da1985ec70df7cae41bf"]');
+    const alwaysDisabledInteger = page.locator(
+      'input[data-test-id="54a4d3f4aa52da1985ec70df7cae41bf"]'
+    );
     attributes = await common.getAttributes(alwaysDisabledInteger);
     await expect(attributes.includes('disabled')).toBeTruthy();
 
-    const conditionallyDisabledInteger = page.locator('input[data-test-id="880afccc457382196a2164f04aeeb19d"]');
+    const conditionallyDisabledInteger = page.locator(
+      'input[data-test-id="880afccc457382196a2164f04aeeb19d"]'
+    );
     attributes = await common.getAttributes(conditionallyDisabledInteger);
     if (isDisabled) {
       await expect(attributes.includes('disabled')).toBeTruthy();
@@ -71,7 +83,9 @@ test.describe('E2E test', () => {
       await expect(attributes.includes('disabled')).toBeFalsy();
     }
 
-    const neverDisabledInteger = page.locator('input[data-test-id="42369a000d05b1bb387c743252b94085"]');
+    const neverDisabledInteger = page.locator(
+      'input[data-test-id="42369a000d05b1bb387c743252b94085"]'
+    );
     attributes = await common.getAttributes(neverDisabledInteger);
     await expect(attributes.includes('disabled')).toBeFalsy();
 
@@ -97,12 +111,18 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Visibility' }).click();
 
     /** Visibility tests */
-    await expect(page.locator('input[data-test-id="4c6e4bb7d9b71d6b45cd6ae61b9ca334"]')).toBeVisible();
+    await expect(
+      page.locator('input[data-test-id="4c6e4bb7d9b71d6b45cd6ae61b9ca334"]')
+    ).toBeVisible();
 
-    const neverVisibleInteger = await page.locator('input[data-test-id="98c754d4acf25bb98ea8a2c46b28275c"]');
+    const neverVisibleInteger = await page.locator(
+      'input[data-test-id="98c754d4acf25bb98ea8a2c46b28275c"]'
+    );
     await expect(neverVisibleInteger).not.toBeVisible();
 
-    const conditionallyVisibleInteger = await page.locator('input[data-test-id="655ddd9a5d76e464311c32d2b53bf963"]');
+    const conditionallyVisibleInteger = await page.locator(
+      'input[data-test-id="655ddd9a5d76e464311c32d2b53bf963"]'
+    );
 
     if (isVisible) {
       await expect(conditionallyVisibleInteger).toBeVisible();

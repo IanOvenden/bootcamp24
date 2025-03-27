@@ -70,6 +70,14 @@ module.exports = (env, argv) => {
           to: './constellation'
         },
         {
+          from: './node_modules/govuk-frontend/dist/govuk/assets/images',
+          to: 'assets/images/'
+        },
+        {
+          from: './node_modules/govuk-frontend/dist/govuk/assets/fonts',
+          to: 'assets/fonts/'
+        },
+        {
           from: './node_modules/@pega/constellationjs/dist/constellation-core.*.*',
           to() {
             return Promise.resolve('constellation/prerequisite/[name][ext]');
@@ -155,7 +163,10 @@ module.exports = (env, argv) => {
           include: [
             path.resolve(__dirname, 'src'),
             path.resolve(__dirname, 'node_modules/react-datepicker'),
-            path.resolve(__dirname, 'node_modules/@pega/react-sdk-components/lib') /* needed to resolve CSS files in new SDK packaging */
+            path.resolve(
+              __dirname,
+              'node_modules/@pega/react-sdk-components/lib'
+            ) /* needed to resolve CSS files in new SDK packaging */
           ],
           use: ['style-loader', 'css-loader']
         },

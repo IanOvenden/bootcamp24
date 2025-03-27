@@ -6,8 +6,14 @@ const common = require('../../../common');
 test.beforeEach(common.launchPortal);
 
 test.describe('E2E test', () => {
-  test('should login, create case and run different test cases Instructions text rendered as readonly Rich Text', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+  test('should login, create case and run different test cases Instructions text rendered as readonly Rich Text', async ({
+    page
+  }) => {
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');

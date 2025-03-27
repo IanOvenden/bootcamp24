@@ -13,7 +13,11 @@ test.describe('E2E test', () => {
   let attributes;
 
   test('should login, create case and run the Date tests', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -69,7 +73,9 @@ test.describe('E2E test', () => {
     attributes = await common.getAttributes(alwaysDisabledDateInput);
     await expect(attributes.includes('disabled')).toBeTruthy();
 
-    const conditionallyDisabledDate = page.locator('div[data-test-id="1064f84bc0ba8525d5f141869fb73a3d"]');
+    const conditionallyDisabledDate = page.locator(
+      'div[data-test-id="1064f84bc0ba8525d5f141869fb73a3d"]'
+    );
     const conditionallyDisabledDateInput = conditionallyDisabledDate.locator('input');
     attributes = await common.getAttributes(conditionallyDisabledDateInput);
     if (isDisabled) {
@@ -106,12 +112,18 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Visibility' }).click();
 
     /** Visibility tests */
-    await expect(page.locator('div[data-test-id="8d1ca7132d5ebd69ccc69b850cf0e114"]')).toBeVisible();
+    await expect(
+      page.locator('div[data-test-id="8d1ca7132d5ebd69ccc69b850cf0e114"]')
+    ).toBeVisible();
 
-    const neverVisibleDate = await page.locator('div[data-test-id="2d575befd938b2cf573f6cdee8d2c194"]');
+    const neverVisibleDate = await page.locator(
+      'div[data-test-id="2d575befd938b2cf573f6cdee8d2c194"]'
+    );
     await expect(neverVisibleDate).not.toBeVisible();
 
-    const conditionallyVisibleDate = await page.locator('div[data-test-id="2a50b142f72fe68effc573bb904c8364"]');
+    const conditionallyVisibleDate = await page.locator(
+      'div[data-test-id="2a50b142f72fe68effc573bb904c8364"]'
+    );
     const conditionallyVisibleDateInput = conditionallyVisibleDate.locator('input');
     if (isVisible) {
       await expect(conditionallyVisibleDateInput).toBeVisible();

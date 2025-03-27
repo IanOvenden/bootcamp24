@@ -6,8 +6,14 @@ const common = require('../../../common');
 test.beforeEach(common.launchPortal);
 
 test.describe('E2E test', () => {
-  test('should login, create case and run different test cases for Inline Dashboard template', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+  test('should login, create case and run different test cases for Inline Dashboard template', async ({
+    page
+  }) => {
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -63,13 +69,17 @@ test.describe('E2E test', () => {
     const nextDay = new Date(day);
     nextDay.setDate(day.getDate() + 1);
 
-    const currentMonthSelector = await datePicker.locator(`.react-datepicker__day:not(.react-datepicker__day--outside-month)`);
+    const currentMonthSelector = await datePicker.locator(
+      `.react-datepicker__day:not(.react-datepicker__day--outside-month)`
+    );
 
     await currentMonthSelector.locator(`text="${day.getDate().toString()}"`).click();
     await currentMonthSelector.locator(`text="${nextDay.getDate().toString()}"`).click();
 
     const dateCol = await table.locator('td >> nth=2');
-    await expect(dateCol.getByText(`${new Date().getDate().toString().padStart(2, '0')}`)).toBeVisible();
+    await expect(
+      dateCol.getByText(`${new Date().getDate().toString().padStart(2, '0')}`)
+    ).toBeVisible();
 
     await page.locator('a:has-text("Clear All")').click();
 

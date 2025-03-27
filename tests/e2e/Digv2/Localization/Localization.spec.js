@@ -7,7 +7,11 @@ test.beforeEach(common.launchPortal);
 /** Added tests for spanish(Latin America) locale (es-XL) */
 test.describe('E2E test', () => {
   test('should login, create case and test the localized values', async ({ page }) => {
-    await common.login(config.config.apps.digv2.localizedUser.username, config.config.apps.digv2.localizedUser.password, page);
+    await common.login(
+      config.config.apps.digv2.localizedUser.username,
+      config.config.apps.digv2.localizedUser.password,
+      page
+    );
 
     /** Testing announcement banner text */
     const announcementBanner = page.locator('h6:has-text("Anuncios")');
@@ -19,7 +23,9 @@ test.describe('E2E test', () => {
 
     /** Testing landing pages */
     expect(await page.locator('div[role="button"]:has-text("Hogar")')).toBeVisible(); // Home
-    expect(await page.locator('div[role="button"]:has-text("Panel de control en línea")')).toBeVisible(); // Inline Dashboard
+    expect(
+      await page.locator('div[role="button"]:has-text("Panel de control en línea")')
+    ).toBeVisible(); // Inline Dashboard
 
     /** Creating a Complex Fields case-type */
     const complexFieldsCase = page.locator('div[role="button"]:has-text("Campos complejos")');
@@ -29,7 +35,9 @@ test.describe('E2E test', () => {
     expect(await page.locator('div[id="case-name"]:has-text("Campos complejos")')).toBeVisible(); // case type
 
     expect(await page.locator('button[id="edit"]:has-text("Editar")')).toBeVisible(); // edit action
-    expect(await page.locator('button[id="actions-menu"]:has-text("Comportamiento")')).toBeVisible(); // actions menu
+    expect(
+      await page.locator('button[id="actions-menu"]:has-text("Comportamiento")')
+    ).toBeVisible(); // actions menu
 
     const caseSummary = await page.locator('div[id="CaseSummary"]');
     expect(caseSummary.locator('input[value="Nuevo"]')).toBeVisible(); // case Status
@@ -61,7 +69,9 @@ test.describe('E2E test', () => {
     await page.locator('button:has-text("Entregar")').click();
 
     /** Testing Multi step */
-    await expect(assignment.locator('div[id="selected-label"]:has-text("Datos integrados")')).toBeVisible();
+    await expect(
+      assignment.locator('div[id="selected-label"]:has-text("Datos integrados")')
+    ).toBeVisible();
 
     let selectedOption = page.locator('div[data-test-id="c6be2b6191e6660291b6b0c92bd2f0df"]');
     await selectedOption.click();

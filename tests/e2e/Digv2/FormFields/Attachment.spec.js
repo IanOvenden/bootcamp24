@@ -14,7 +14,11 @@ test.describe('E2E test', () => {
   let attributes;
 
   test('should login, create case and run the Attachment tests', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -78,14 +82,18 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Single' }).click();
 
     const singleAttachment = page.locator('label[for="Attachment"]');
-    await expect(singleAttachment.locator('span[role="button"]:has-text("Choose a file")')).toBeVisible();
+    await expect(
+      singleAttachment.locator('span[role="button"]:has-text("Choose a file")')
+    ).toBeVisible();
     await page.setInputFiles(`#Attachment`, filePath);
     await expect(page.locator('div >> text="cableinfo.jpg"')).toBeVisible();
     await expect(page.locator('span:has-text("Choose a file")')).toBeHidden();
 
     await page.locator('button[aria-label="Delete Attachment"]').click();
 
-    await expect(singleAttachment.locator('span[role="button"]:has-text("Choose a file")')).toBeVisible();
+    await expect(
+      singleAttachment.locator('span[role="button"]:has-text("Choose a file")')
+    ).toBeVisible();
 
     /** Testing Multiple mode attachments */
     selectedSubCategory = page.locator('div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]');
@@ -93,7 +101,9 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Multiple' }).click();
 
     const multipleAttachment = page.locator('label[for="AttachmentList"]');
-    await expect(multipleAttachment.locator('span[role="button"]:has-text("Choose files")')).toBeVisible();
+    await expect(
+      multipleAttachment.locator('span[role="button"]:has-text("Choose files")')
+    ).toBeVisible();
     await page.setInputFiles(`#AttachmentList`, [filePath, filePath2]);
 
     await Promise.all([
@@ -109,14 +119,20 @@ test.describe('E2E test', () => {
 
     await expect(page.locator('div >> text="Uploaded successfully" >> nth=0')).toBeVisible();
 
-    await expect(multipleAttachment.locator('span[role="button"]:has-text("Choose files")')).toBeVisible();
+    await expect(
+      multipleAttachment.locator('span[role="button"]:has-text("Choose files")')
+    ).toBeVisible();
 
     /** Testing error case by uploading empty file */
     await page.setInputFiles(`#AttachmentList`, [zeroBytesFile]);
     await expect(page.locator('div >> text="Error with one or more files"')).toBeVisible();
-    await expect(page.locator(`div >> text="Empty file can't be uploaded." >> nth=0`)).toBeVisible();
+    await expect(
+      page.locator(`div >> text="Empty file can't be uploaded." >> nth=0`)
+    ).toBeVisible();
 
-    const errorFile = await page.locator('div[class="psdk-utility-card"]:has-text("Unable to upload file")');
+    const errorFile = await page.locator(
+      'div[class="psdk-utility-card"]:has-text("Unable to upload file")'
+    );
     await errorFile.locator('button[aria-label="Delete Attachment"]').click();
 
     await page.locator('button:has-text("submit")').click();
