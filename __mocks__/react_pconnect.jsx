@@ -15,7 +15,16 @@ let detailsRegionIndex = 0;
 
 const createPConnectComponent = () => {
   const formComponents = [TextInput, TextInput, TextInput, Phone, AutoComplete, Email];
-  const detailsComponents = [TextInput, TextInput, TextInput, Email, Phone, Currency, RadioButtons, Operator];
+  const detailsComponents = [
+    TextInput,
+    TextInput,
+    TextInput,
+    Email,
+    Phone,
+    Currency,
+    RadioButtons,
+    Operator
+  ];
   const detailsRegionComponents = [
     TextInput,
     TextInput,

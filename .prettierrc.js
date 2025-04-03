@@ -4,6 +4,6 @@
 const pegaPrettierConfig = require('@pega/prettier-config');
 
 module.exports = {
-  ...require("@pega/prettier-config"),
+  ...require('@pega/prettier-config'),
   ignore: ['package.json', 'sdk-config.json']
-}
+};

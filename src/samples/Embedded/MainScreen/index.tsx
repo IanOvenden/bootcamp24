@@ -85,14 +85,25 @@ export default function MainScreen(props: MainScreenProps) {
 
   useEffect(() => {
     // Subscribe to the EVENT_CANCEL event to handle the assignment cancellation
-    PCore.getPubSubUtils().subscribe(PCore.getConstants().PUB_SUB_EVENTS.EVENT_CANCEL, () => cancelAssignment(), 'cancelAssignment');
+    PCore.getPubSubUtils().subscribe(
+      PCore.getConstants().PUB_SUB_EVENTS.EVENT_CANCEL,
+      () => cancelAssignment(),
+      'cancelAssignment'
+    );
 
     // Subscribe to the 'assignmentFinished' event to handle assignment completion
-    PCore.getPubSubUtils().subscribe('assignmentFinished', () => assignmentFinished(), 'assignmentFinished');
+    PCore.getPubSubUtils().subscribe(
+      'assignmentFinished',
+      () => assignmentFinished(),
+      'assignmentFinished'
+    );
 
     return () => {
       // unsubscribe to the events
-      PCore.getPubSubUtils().unsubscribe(PCore.getConstants().PUB_SUB_EVENTS.EVENT_CANCEL, 'cancelAssignment');
+      PCore.getPubSubUtils().unsubscribe(
+        PCore.getConstants().PUB_SUB_EVENTS.EVENT_CANCEL,
+        'cancelAssignment'
+      );
       PCore.getPubSubUtils().unsubscribe('assignmentFinished', 'assignmentFinished');
     };
   });
@@ -160,7 +171,9 @@ export default function MainScreen(props: MainScreenProps) {
     );
 
     const theOptions = shoppingOptions.map((option, index) => {
-      return <ShoppingOptionCard key={option.level} {...shoppingOptions[index]} onClick={onShopNow} />;
+      return (
+        <ShoppingOptionCard key={option.level} {...shoppingOptions[index]} onClick={onShopNow} />
+      );
     });
 
     return (
@@ -183,9 +196,14 @@ export default function MainScreen(props: MainScreenProps) {
             <div className={classes.pegaPartText}> * - required fields</div>
           </div>
           <div className={classes.pegaPartAccompaniment}>
-            <div className={classes.pegaPartAccompanimentText}>We need to gather a little information about you.</div>
+            <div className={classes.pegaPartAccompanimentText}>
+              We need to gather a little information about you.
+            </div>
             <div>
-              <img src='../../../assets/img/cableinfo.jpg' className={classes.pegaPartAccompanimentImage} />
+              <img
+                src='../../../assets/img/cableinfo.jpg'
+                className={classes.pegaPartAccompanimentImage}
+              />
             </div>
           </div>
         </div>

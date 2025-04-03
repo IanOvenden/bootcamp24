@@ -7,7 +7,11 @@ test.beforeEach(common.launchPortal);
 
 test.describe('E2E test', () => {
   test('should login, create case and run the Email tests', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -27,7 +31,9 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'PickList' }).click();
 
     /** Selecting Required from the Sub Category dropdown */
-    const selectedSubCategory = page.locator('div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]');
+    const selectedSubCategory = page.locator(
+      'div[data-test-id="9463d5f18a8924b3200b56efaad63bda"]'
+    );
     await selectedSubCategory.click();
     await page.getByRole('option', { name: 'DataPage' }).click();
 
@@ -41,7 +47,9 @@ test.describe('E2E test', () => {
     const placeholderValue = await dropdown.locator('input').getAttribute('placeholder');
     await expect(placeholderValue).toBe('Select...');
 
-    await expect(page.locator('div[id="Assignment"] >> p:has-text("Picklist Helper Text")')).toBeVisible();
+    await expect(
+      page.locator('div[id="Assignment"] >> p:has-text("Picklist Helper Text")')
+    ).toBeVisible();
 
     await dropdown.click();
     await page.getByRole('option', { name: 'Massachusetts' }).click();

@@ -114,7 +114,16 @@ const useStyles = makeStyles(theme => ({
 export default function ShoppingOptionCard(props) {
   const classes = useStyles();
 
-  const { play, level, channels, channels_full: channelsFull, banner, price, internetSpeed, calling } = props;
+  const {
+    play,
+    level,
+    channels,
+    channels_full: channelsFull,
+    banner,
+    price,
+    internetSpeed,
+    calling
+  } = props;
 
   return (
     <div>

@@ -13,14 +13,18 @@ const connectToState = (mapStateToProps = () => {}) => {
         const c11nEnv = next.getPConnect();
         const allStateProps = c11nEnv.getStateProps();
         for (const key of Object.keys(allStateProps)) {
-          if (!shallowEqual(next[key], prev[key]) || (next.routingInfo && !PCore.isDeepEqual(next.routingInfo, prev.routingInfo))) {
+          if (
+            !shallowEqual(next[key], prev[key]) ||
+            (next.routingInfo && !PCore.isDeepEqual(next.routingInfo, prev.routingInfo))
+          ) {
             return false;
           }
         }
         /* TODO For some rawConfig we are not getting routingInfo under allStateProps */
         return !(
           'routingInfo' in next &&
-          (!shallowEqual(next.routingInfo, prev.routingInfo) || !PCore.isDeepEqual(next.routingInfo, prev.routingInfo))
+          (!shallowEqual(next.routingInfo, prev.routingInfo) ||
+            !PCore.isDeepEqual(next.routingInfo, prev.routingInfo))
         );
       }
     })(Component);

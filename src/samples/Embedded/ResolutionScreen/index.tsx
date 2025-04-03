@@ -50,10 +50,12 @@ export default function ResolutionScreen() {
             <br />
             Thanks for selecting a package with us. <br />
             <br />
-            A technician will contact you with in the next couple of days to schedule an installation.
+            A technician will contact you with in the next couple of days to schedule an
+            installation.
             <br />
             <br />
-            If you have any questions, you can contact us directly at <b>1-800-555-1234</b> or you can chat with us.
+            If you have any questions, you can contact us directly at <b>1-800-555-1234</b> or you
+            can chat with us.
           </div>
         </div>
         <div className={classes.resolutionPartAccompanimentRight}>

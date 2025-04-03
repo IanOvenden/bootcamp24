@@ -13,7 +13,11 @@ test.describe('E2E test', () => {
   let attributes;
 
   test('should login, create case and run the Email tests', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -49,12 +53,16 @@ test.describe('E2E test', () => {
 
     /** Checking 'field label', 'placeholder', and 'helper text' */
     const requiredEmailFieldLabel = page.locator('text="Required Email"');
-    await expect(requiredEmailFieldLabel && requiredEmailFieldLabel.locator('text="*"')).toBeVisible();
+    await expect(
+      requiredEmailFieldLabel && requiredEmailFieldLabel.locator('text="*"')
+    ).toBeVisible();
 
     const placeholderValue = await requiredEmail.getAttribute('placeholder');
     await expect(placeholderValue).toBe('Email Placeholder');
 
-    await expect(page.locator('div[id="Assignment"] >> p:has-text("Email Helper Text")')).toBeVisible();
+    await expect(
+      page.locator('div[id="Assignment"] >> p:has-text("Email Helper Text")')
+    ).toBeVisible();
 
     attributes = await common.getAttributes(requiredEmail);
     await expect(attributes.includes('required')).toBeTruthy();
@@ -69,11 +77,15 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Disable' }).click();
 
     // /** Disable tests */
-    const alwaysDisabledEmail = page.locator('input[data-test-id="b949bbfd05d3e96a0102055e448dd7ab"]');
+    const alwaysDisabledEmail = page.locator(
+      'input[data-test-id="b949bbfd05d3e96a0102055e448dd7ab"]'
+    );
     attributes = await common.getAttributes(alwaysDisabledEmail);
     await expect(attributes.includes('disabled')).toBeTruthy();
 
-    const conditionallyDisabledEmail = page.locator('input[data-test-id="23104b6fc0da1045beb3f037698201aa"]');
+    const conditionallyDisabledEmail = page.locator(
+      'input[data-test-id="23104b6fc0da1045beb3f037698201aa"]'
+    );
     attributes = await common.getAttributes(conditionallyDisabledEmail);
     if (isDisabled) {
       await expect(attributes.includes('disabled')).toBeTruthy();
@@ -81,7 +93,9 @@ test.describe('E2E test', () => {
       await expect(attributes.includes('disabled')).toBeFalsy();
     }
 
-    const neverDisabledEmail = page.locator('input[data-test-id="15d6a12d383c87b8695f8f11523af8c6"]');
+    const neverDisabledEmail = page.locator(
+      'input[data-test-id="15d6a12d383c87b8695f8f11523af8c6"]'
+    );
     attributes = await common.getAttributes(neverDisabledEmail);
     await expect(attributes.includes('disabled')).toBeFalsy();
 
@@ -112,12 +126,18 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Visibility' }).click();
 
     /** Visibility tests */
-    await expect(page.locator('input[data-test-id="c30b8043cb501907a3e7b186fb37a85b"]')).toBeVisible();
+    await expect(
+      page.locator('input[data-test-id="c30b8043cb501907a3e7b186fb37a85b"]')
+    ).toBeVisible();
 
-    const neverVisibleEmail = await page.locator('input[data-test-id="5aa7a927ac4876abf1fcff6187ce5d76"]');
+    const neverVisibleEmail = await page.locator(
+      'input[data-test-id="5aa7a927ac4876abf1fcff6187ce5d76"]'
+    );
     await expect(neverVisibleEmail).not.toBeVisible();
 
-    const conditionallyVisibleEmail = await page.locator('input[data-test-id="7f544a3551e7d7e51222dec315e7add5"]');
+    const conditionallyVisibleEmail = await page.locator(
+      'input[data-test-id="7f544a3551e7d7e51222dec315e7add5"]'
+    );
 
     if (isVisible) {
       await expect(conditionallyVisibleEmail).toBeVisible();

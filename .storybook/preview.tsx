@@ -1,6 +1,12 @@
 import React from 'react';
 import { Preview } from '@storybook/react';
-import { Configuration, PopoverManager, Toaster, ModalManager, WorkTheme } from '@pega/cosmos-react-core';
+import {
+  Configuration,
+  PopoverManager,
+  Toaster,
+  ModalManager,
+  WorkTheme
+} from '@pega/cosmos-react-core';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { getSdkComponentMap } from '@pega/react-sdk-components/lib/bridge/helpers/sdk_component_map';

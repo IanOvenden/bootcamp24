@@ -13,7 +13,11 @@ test.describe('E2E test', () => {
   let attributes;
 
   test('should login, create case and run the URL tests', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -52,11 +56,15 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Disable' }).click();
 
     // /** Disable tests */
-    const alwaysDisabledURL = page.locator('input[data-test-id="922758766489b064688aba17552c566d"]');
+    const alwaysDisabledURL = page.locator(
+      'input[data-test-id="922758766489b064688aba17552c566d"]'
+    );
     attributes = await common.getAttributes(alwaysDisabledURL);
     await expect(attributes.includes('disabled')).toBeTruthy();
 
-    const conditionallyDisabledURL = page.locator('input[data-test-id="ae2e04faf34d58c5bff6be9b4fc9b0d9"]');
+    const conditionallyDisabledURL = page.locator(
+      'input[data-test-id="ae2e04faf34d58c5bff6be9b4fc9b0d9"]'
+    );
     attributes = await common.getAttributes(conditionallyDisabledURL);
     if (isDisabled) {
       await expect(attributes.includes('disabled')).toBeTruthy();
@@ -83,7 +91,8 @@ test.describe('E2E test', () => {
     await expect(attributes.includes('readonly')).toBeFalsy();
 
     /** Validation tests */
-    const validationMsg = 'Please enter a valid URL including the protocol (http://, https://, ftp://, etc.)';
+    const validationMsg =
+      'Please enter a valid URL including the protocol (http://, https://, ftp://, etc.)';
     await editableURL.fill('InvalidUrl');
     await editableURL.blur();
     await expect(page.locator(`p:has-text("${validationMsg}")`)).toBeVisible();
@@ -98,12 +107,18 @@ test.describe('E2E test', () => {
     await page.getByRole('option', { name: 'Visibility' }).click();
 
     /** Visibility tests */
-    await expect(page.locator('input[data-test-id="c239893d906b22bc8de9c7f3d0c1e219"]')).toBeVisible();
+    await expect(
+      page.locator('input[data-test-id="c239893d906b22bc8de9c7f3d0c1e219"]')
+    ).toBeVisible();
 
-    const neverVisibleURL = await page.locator('input[data-test-id="01cec81e2fe61acf1b0480187998d1ee"]');
+    const neverVisibleURL = await page.locator(
+      'input[data-test-id="01cec81e2fe61acf1b0480187998d1ee"]'
+    );
     await expect(neverVisibleURL).not.toBeVisible();
 
-    const conditionallyVisibleURL = await page.locator('input[data-test-id="c7a204d92fc6300c68859901de172f8b"]');
+    const conditionallyVisibleURL = await page.locator(
+      'input[data-test-id="c7a204d92fc6300c68859901de172f8b"]'
+    );
 
     if (isVisible) {
       await expect(conditionallyVisibleURL).toBeVisible();

@@ -4,7 +4,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import { SdkConfigAccess, loginIfNecessary, getAvailablePortals } from '@pega/auth/lib/sdk-auth-manager';
+import {
+  SdkConfigAccess,
+  loginIfNecessary,
+  getAvailablePortals
+} from '@pega/auth/lib/sdk-auth-manager';
 
 import StoreContext from '@pega/react-sdk-components/lib/bridge/Context/StoreContext';
 import createPConnectComponent from '@pega/react-sdk-components/lib/bridge/react_pconnect';
@@ -155,7 +159,11 @@ export default function FullPortal() {
   };
 
   return portalSelectionScreen ? (
-    <InvalidPortal defaultPortal={defaultPortalName} portals={availablePortals} onSelect={loadSelectedPortal} />
+    <InvalidPortal
+      defaultPortal={defaultPortalName}
+      portals={availablePortals}
+      onSelect={loadSelectedPortal}
+    />
   ) : (
     <div id='pega-root'>
       <StyledEngineProvider injectFirst>

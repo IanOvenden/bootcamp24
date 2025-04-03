@@ -6,8 +6,14 @@ const common = require('../../../common');
 test.beforeEach(common.launchPortal);
 
 test.describe('E2E test', () => {
-  test('should login, create case and run different test cases for My Work landing page', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+  test('should login, create case and run different test cases for My Work landing page', async ({
+    page
+  }) => {
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -33,14 +39,22 @@ test.describe('E2E test', () => {
     await page.locator(`button:has-text("${caseID}")`).click();
 
     /** Testing that the Case View has rendered */
-    expect(await page.locator('div[id="current-caseID"]').textContent()).toBe(`DXIL-DIGV2-WORK ${caseID}`);
+    expect(await page.locator('div[id="current-caseID"]').textContent()).toBe(
+      `DXIL-DIGV2-WORK ${caseID}`
+    );
 
     /** Testing that the Assignment has opened */
     expect(page.locator('div[id="Assignment"]')).toBeVisible();
   }, 10000);
 
-  test('should login, create case and come back to Home landing page and run tests', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+  test('should login, create case and come back to Home landing page and run tests', async ({
+    page
+  }) => {
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');

@@ -16,13 +16,19 @@ const config: StorybookConfig = {
   },
   webpackFinal: async config => {
     if (config.resolve?.alias) {
-      config.resolve.alias['@pega/react-sdk-components/lib/bridge/react_pconnect'] = path.resolve(__dirname, '../__mocks__/react_pconnect.jsx');
-      config.resolve.alias['@pega/react-sdk-components/lib/components/designSystemExtension/DetailsFields'] = path.resolve(
+      config.resolve.alias['@pega/react-sdk-components/lib/bridge/react_pconnect'] = path.resolve(
         __dirname,
-        '../__mocks__/DetailsFields.js'
+        '../__mocks__/react_pconnect.jsx'
       );
-      config.resolve.alias['@pega/react-sdk-components/lib/components/helpers/state-utils'] = path.resolve(__dirname, '../__mocks__/state-utils.tsx');
-      config.resolve.alias['@pega/auth/lib/sdk-auth-manager'] = path.resolve(__dirname, '../__mocks__/authManager.tsx');
+      config.resolve.alias[
+        '@pega/react-sdk-components/lib/components/designSystemExtension/DetailsFields'
+      ] = path.resolve(__dirname, '../__mocks__/DetailsFields.js');
+      config.resolve.alias['@pega/react-sdk-components/lib/components/helpers/state-utils'] =
+        path.resolve(__dirname, '../__mocks__/state-utils.tsx');
+      config.resolve.alias['@pega/auth/lib/sdk-auth-manager'] = path.resolve(
+        __dirname,
+        '../__mocks__/authManager.tsx'
+      );
     }
 
     if (config.module) {

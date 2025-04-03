@@ -36,7 +36,7 @@ export default function Currency(props: CurrrencyProps) {
 
   const pConn = getPConnect();
   const actions = pConn.getActionsApi();
-  const propName = pConn.getStateProps()["value"];
+  const propName = pConn.getStateProps().value;
   const helperTextToDisplay = validatemessage || helperText;
 
   // console.log(`Currency: label: ${label} value: ${value}`);
@@ -79,10 +79,12 @@ export default function Currency(props: CurrrencyProps) {
   }
 
   if (displayMode === 'STACKED_LARGE_VAL') {
-    return <FieldValueList name={hideLabel ? '' : label} value={formattedValue} variant="stacked" />;
+    return (
+      <FieldValueList name={hideLabel ? '' : label} value={formattedValue} variant='stacked' />
+    );
   }
 
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function currOnChange(event, inValue) {
     // console.log(`Currency currOnChange inValue: ${inValue}`);
 

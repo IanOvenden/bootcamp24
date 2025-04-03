@@ -7,7 +7,11 @@ test.beforeEach(common.launchPortal);
 
 test.describe('E2E test', () => {
   test('should login, create case and run the Field Group tests', async ({ page }) => {
-    await common.login(config.config.apps.digv2.user.username, config.config.apps.digv2.user.password, page);
+    await common.login(
+      config.config.apps.digv2.user.username,
+      config.config.apps.digv2.user.password,
+      page
+    );
 
     /** Testing announcement banner presence */
     const announcementBanner = page.locator('h6:has-text("Announcements")');
@@ -61,18 +65,26 @@ test.describe('E2E test', () => {
 
     // Collapsible Tests
     await expect(page.getByText('Collapsible Field Group')).toBeVisible();
-    await expect(page.locator('input[data-test-id="861d2d04e52d59e8b85a27fd5b4aef28"]')).toHaveValue('John Doe');
-    await expect(await page.locator('div[data-test-id="8e70e124867b68bec5cbf1f2f25da383"] >> div[role="combobox"]').textContent()).toBe(
-      'United States'
-    );
+    await expect(
+      page.locator('input[data-test-id="861d2d04e52d59e8b85a27fd5b4aef28"]')
+    ).toHaveValue('John Doe');
+    await expect(
+      await page
+        .locator('div[data-test-id="8e70e124867b68bec5cbf1f2f25da383"] >> div[role="combobox"]')
+        .textContent()
+    ).toBe('United States');
 
     // Collapse Field Group
     await page.locator('span[id="field-group-header"] svg').click();
-    await expect(page.locator('input[data-test-id="861d2d04e52d59e8b85a27fd5b4aef28"]')).toBeHidden();
+    await expect(
+      page.locator('input[data-test-id="861d2d04e52d59e8b85a27fd5b4aef28"]')
+    ).toBeHidden();
 
     // Expand Field Group
     await page.locator('span[id="field-group-header"] svg').click();
-    await expect(page.locator('input[data-test-id="861d2d04e52d59e8b85a27fd5b4aef28"]')).toBeVisible();
+    await expect(
+      page.locator('input[data-test-id="861d2d04e52d59e8b85a27fd5b4aef28"]')
+    ).toBeVisible();
   }, 10000);
 });
 
